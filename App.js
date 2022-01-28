@@ -1,31 +1,42 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native';
-import { Alert } from 'react-native';
 
 export default function App() {
 
-
-  const buttonPressedAdd = () => { Alert.alert('')};
-  const buttonPressedSubtract = () => { Alert.alert('')};
-
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
+  
+  const [result, setResult] = useState('');
 
-  const getResult = (text1, text2) => {
-    return text1 + text2
-  };
+  const count1 = () => {
+      const result = Number(text1) + Number(text2);
+      setResult(result);
+      Alert.alert(`Yhteenlaskettu summa on ${result}`);
+  }
 
-  //const [number, onChangeNumber] = React.useState(null);
+  const count2 = () => {
+      const result = Number(text1) - Number(text2);
+      setResult(result);
+      Alert.alert(`Yhteenlaskettu summa on ${result}`);
+  }
+
+
 
   return (
     <View style={styles.container}>
-      <Text>Result {getResult}</Text>
-      <TextInput style={styles.input} onChangeText={text1 => setText1(text1)} value={text1}/>
+      <Text>Result: { result }</Text>
+      <TextInput style={styles.input} onChangeText={text1 => setText1(text1)} value={ text1}/>
       <TextInput style={styles.input} onChangeText={text2 => setText2(text2)} value={text2}/>
-      <Button onPress={buttonPressedAdd} title='+'/>
-      <Button onPress={buttonPressedSubtract} title='-'/>
+     <View style={styles.row}>
+     <View style={styles.button}>
+      <Button onPress={ count1 } title='+'/>
+      </View>
+      <View style={styles.button}>
+      <Button onPress={ count2 } title='-'/>
+      </View>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -37,11 +48,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   input: {
-    width:100, 
+    width: '20%', 
     borderColor: 'gray', 
     borderWidth:1,
+    marginTop: 5,
   },
+
+  row: {
+    flexDirection: "row",
+    justifyContent: 'space-evenly',
+    //alignItems: 'space-evenly',
+    width: '20%',
+  },
+
+
+  button: {
+    marginTop: 10,
+  }
 
 });
