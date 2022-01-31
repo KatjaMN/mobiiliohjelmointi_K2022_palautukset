@@ -4,22 +4,32 @@ import { Alert, StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native';
 
 
-export default function Calculator() {
+
+export default function Calculator({ navigation }) {
 
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   
   const [result, setResult] = useState('');
+  const [data, setData] = useState([]);
 
   const count1 = () => {
       const result = Number(text1) + Number(text2);
       setResult(result);
+      let historia = text1 + ' + ' + text2 + ' = ' + result;
+      setData([...data, { key: historia }]);
+      setText1('');
+      setText2('');
       Alert.alert(`Yhteenlaskettu summa on ${result}`);
   }
 
   const count2 = () => {
       const result = Number(text1) - Number(text2);
       setResult(result);
+      let historia = text1 + ' - ' + text2 + ' = ' + result;
+      setData([...data, { key: historia }]);
+      setText1('');
+      setText2('');
       Alert.alert(`Yhteenlaskettu summa on ${result}`);
   }
 
@@ -37,6 +47,9 @@ export default function Calculator() {
       <View style={styles.button}>
       <Button onPress={ count2 } title='-'/>
       </View>
+      <View style={styles.button}>
+                    <Button onPress={() => navigation.navigate('History', { result })} title='History' />
+                </View>
       </View>
       <StatusBar style="auto" />
     </View>

@@ -4,7 +4,7 @@ import { Alert, StyleSheet, Text, View, FlatList } from 'react-native';
 import { Button, TextInput } from 'react-native';
 
 
-export default function CalculatorHistory() {
+export default function CalculatorHistory()  {
 
     const [text1, setText1] = useState('');
     const [text2, setText2] = useState('');
@@ -45,6 +45,7 @@ export default function CalculatorHistory() {
                 <View style={styles.button}>
                     <Button onPress={count2} title='-' />
                 </View>
+                
             </View>
             <Text style={{ marginTop: 10, marginBottom: 10 }}>History</Text>
             <FlatList
